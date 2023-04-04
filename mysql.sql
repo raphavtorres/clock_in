@@ -6,9 +6,8 @@ CREATE TABLE students (
     lateStudent int,
     entrance int,
     exit_amount int,
-    PRIMARY KEY (userID),
-    FOREIGN KEY (entrance) REFERENCES entrance_table(idEntrance),
-    FOREIGN KEY (exit_amount) REFERENCES exit_table (idExit)
+    rfID varchar(255) NOT NULL,
+    PRIMARY KEY (rfID)
 );
 
 
@@ -16,7 +15,9 @@ CREATE TABLE entrance_table (
     idEntrance int NOT NULL AUTO_INCREMENT,
     entrance int,
     timeEntrace TIMESTAMP,
-    PRIMARY KEY (idEntrance)
+    rfID varchar (255),
+    PRIMARY KEY (idEntrance),
+    FOREIGN KEY (rfID) REFERENCES students(rfID)
 );
 
 
@@ -24,7 +25,16 @@ CREATE TABLE exit_table (
     idExit int NOT NULL AUTO_INCREMENT,
     exit_amount int,
     timeExit TIMESTAMP,
-    PRIMARY KEY (idExit)
+    rfID varchar (255),
+    PRIMARY KEY (idExit),
+    FOREIGN KEY (rfID) REFERENCES students(rfID)
 );
 
 ALTER TABLE students ADD rfID varchar(255);
+
+
+INSERT INTO entrance_table (timeEntrace, rfID)
+VALUES ("{current_time}, {rfID}");
+
+INSERT INTO exit_table (timeExit, rfID)
+VALUES ("{current_time}, {rfID}");
