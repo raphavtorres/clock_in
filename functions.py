@@ -1,50 +1,44 @@
-from threading import Timer
+from time import strptime
 
-from clock import get_curr_time
-from create import create_exit
-
+from create import create_exit, create_entrance
 
 not_present = True
 
 
-def get_curr_time():
-    from datetime import datetime
-    # datetime object containing current date and time
-    now = datetime.now()
-    # dd/mm/YY H:M:S
-    current_timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    return current_timestamp
-    print("Ola, voce executou este arquivo em =", current_timestamp)
+def format(x):
+    return strptime(x, "%H:%M:%S")
 
 
-def check_time(time):
-    if time > "10:45":
+def check_time(time_user):
+    time_user = format(time_user)
+    lateness = 0
+    value = 0
+    if time_user > format("10:45:00"):  # not necessary
         value = 0
-    elif time > "10:00":
+    elif time_user > "10:00":
         value = 1
-    elif time > "9:00":
+    elif time_user > "9:00":
         value = 2
-    elif time > "8:15":
+    elif time_user > "8:15":
         value = 3
-    elif time > "7:45":
+    elif time_user > "7:45":
         value = 4
-    elif time > "7:30":
-        late = 1  # WILL USE ONLY IF IS "ENTRANCE" 
+    elif time_user > "7:30":
+        lateness = 1  # WILL USE ONLY IF IS "ENTRANCE" 
         value = 5
-    elif time >= "7:25" and time <= "7:30":
+    # elif time_user >= "7:25" and time_user <= "7:30":
+    elif "7:30" >= time_user >= "7:25":
         value = 5
+    return value, lateness
+
 
 def check_entrance(time_entrance):
     not_present = False
-    presence = check_time(time_entrance)
+    presence, lateness = check_time(time_entrance)
+    return presence, lateness
 
 
-def check_exit(rfID):
-    time_exit = create_exit(rfID)
-    abscense = check_time(time_exit)
-    not_present = True 
-
-
-def timer():
-    timer_variable = Timer(14400, check_exit)
-    timer_variable.start()
+def check_exit(time_exit):
+    abscense, _ = check_time(time_exit)
+    not_present = True
+    return abscense

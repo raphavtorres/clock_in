@@ -5,7 +5,7 @@ db = mysql.connector.connect(
     host='localhost',
     user='root',
     password='',
-    database='clock_point'
+    database='clock_in'
 )
 
 cursor = db.cursor()
