@@ -1,6 +1,5 @@
 from time import strptime
-
-from create import create_exit, create_entrance
+from threading import Timer
 
 not_present = True
 
@@ -15,19 +14,18 @@ def check_time(time_user):
     value = 0
     if time_user > format("10:45:00"):  # not necessary
         value = 0
-    elif time_user > "10:00":
+    elif time_user > format("10:00:00"):
         value = 1
-    elif time_user > "9:00":
+    elif time_user > format("9:00:00"):
         value = 2
-    elif time_user > "8:15":
+    elif time_user > format("8:15:00"):
         value = 3
-    elif time_user > "7:45":
+    elif time_user > format("7:45:00"):
         value = 4
-    elif time_user > "7:30":
-        lateness = 1  # WILL USE ONLY IF IS "ENTRANCE" 
+    elif time_user > format("7:30:00"):
+        lateness = 1 
         value = 5
-    # elif time_user >= "7:25" and time_user <= "7:30":
-    elif "7:30" >= time_user >= "7:25":
+    elif format("7:30:00") >= time_user >= format("7:25:00"):
         value = 5
     return value, lateness
 
@@ -42,3 +40,9 @@ def check_exit(time_exit):
     abscense, _ = check_time(time_exit)
     not_present = True
     return abscense
+
+
+""" def timer():
+    timer_variable = Timer(14400, create_exit)
+    timer_variable.start()
+ """
