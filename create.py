@@ -10,7 +10,18 @@ def db_commit(sql):
     for command in sql:
         con.cursor.execute(command)
         con.db.commit()
-    
+
+def hit_point(rfID):
+    #send to database True or False for "is_present"
+    # if is_present:
+    #    create_exit()
+    # else:
+    #    create_entrance()
+    #
+    # if time < 7:25
+    #   value = null
+    #   
+    ...
 
 
 # CALLED WHEN HIT
@@ -26,12 +37,12 @@ def create_entrance(rfID):
 def create_exit(rfID):
     abscense = check_exit(current_time_list[1])
 
-    sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
+    """ sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
     con.cursor.execute(sql)
     result = con.cursor.fetchall()
-    presence = result[0][0]
+    presence = result[0][0] """
 
-    new_presence = int(presence) - int(abscense)
+    new_presence = 5 - int(abscense)
 
     sql = [
         f"INSERT INTO exit_table (timeExit, rfID) VALUES ('{current_time}', '{rfID}')",
@@ -41,5 +52,6 @@ def create_exit(rfID):
     return current_time
 
 
+create_exit('0001')
 def read_user():
     ...

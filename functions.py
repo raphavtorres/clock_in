@@ -25,7 +25,7 @@ def check_time(time_user):
     elif time_user > format("7:30:00"):
         lateness = 1 
         value = 5
-    elif format("7:30:00") >= time_user >= format("7:25:00"):
+    elif format("7:25:00") <= time_user <= format("7:30:00"):
         value = 5
     return value, lateness
 
