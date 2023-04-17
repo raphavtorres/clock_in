@@ -1,4 +1,4 @@
-# clock_in
+# Clock In
 
 The project's objective is to create a time clock to control the student's attendance at Senai Roberto Mange School, using the microprocessor Raspberry Pi 4 with a rfID tag. 
 
