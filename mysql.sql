@@ -5,6 +5,7 @@ CREATE TABLE students (
     presenceStudent int,
     absenceStudent int,
     lateStudent int,
+    isPresent tinyint(1) default 0,
     PRIMARY KEY (rfID)
 );
 
@@ -37,8 +38,8 @@ INSERT INTO students (rfID, nameStudent, presenceStudent, absenceStudent, lateSt
 
 
 UPDATE students
-SET nameStudent = 'Aprijjas', presenceStudent = 0, lateStudent = 0, absenceStudent = 0
-WHERE rfID = '007';
+SET nameStudent = 'Celso Ricardo', presenceStudent = 0, lateStudent = 0, absenceStudent = 0
+WHERE rfID = '0001';
 
 
 SELECT presenceStudent FROM students WHERE rfID = '123';

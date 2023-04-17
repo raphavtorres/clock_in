@@ -1,9 +1,10 @@
 import connect as con
 from clock import get_curr_time
-from functions import check_entrance, check_exit
+from functions import check_entrance, check_exit, format
 
 current_time = get_curr_time()
 current_time_list = current_time.split(' ')
+current_time_list = [0, "11:30:00"]
 
 
 def db_commit(sql):
@@ -11,17 +12,22 @@ def db_commit(sql):
         con.cursor.execute(command)
         con.db.commit()
 
+
 def hit_point(rfID):
-    #send to database True or False for "is_present"
-    # if is_present:
-    #    create_exit()
-    # else:
-    #    create_entrance()
-    #
-    # if time < 7:25
-    #   value = null
-    #   
-    ...
+    sql = f"SELECT isPresent FROM students WHERE rfID = {rfID}"
+    con.cursor.execute(sql)
+    result = con.cursor.fetchall()
+    presence = result[0][0]
+
+    if presence == 1:
+        presence = 0
+        create_exit(rfID)
+    elif format(current_time_list[1]) >= format("07:25:00"):
+        presence = 1
+        create_entrance(rfID)
+
+    sql = [f"UPDATE students SET isPresent = {presence} WHERE rfID = {rfID}"]
+    db_commit(sql)        
 
 
 # CALLED WHEN HIT
@@ -37,11 +43,6 @@ def create_entrance(rfID):
 def create_exit(rfID):
     abscense = check_exit(current_time_list[1])
 
-    """ sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
-    con.cursor.execute(sql)
-    result = con.cursor.fetchall()
-    presence = result[0][0] """
-
     new_presence = 5 - int(abscense)
 
     sql = [
@@ -52,6 +53,5 @@ def create_exit(rfID):
     return current_time
 
 
-create_exit('0001')
 def read_user():
     ...
