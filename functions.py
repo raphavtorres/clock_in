@@ -9,7 +9,11 @@ def check_time(time_user):
     time_user = format(time_user)
     lateness = 0
     value = 0
-    if time_user > format("10:45:00"):
+    #  and time_user < format("11:30:00")
+    
+    if time_user > format("10:45:00") and time_user < format("11:30:00"):
+        value = 1
+    elif time_user > format("10:45:00"):
         pass
     elif time_user > format("10:00:00"):
         value = 1

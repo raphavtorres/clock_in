@@ -38,7 +38,7 @@ INSERT INTO students (rfID, nameStudent, presenceStudent, absenceStudent, lateSt
 
 
 UPDATE students
-SET nameStudent = 'Celso Ricardo', presenceStudent = 0, lateStudent = 0, absenceStudent = 0
+SET nameStudent = 'Celso Ricardo', presenceStudent = 0, lateStudent = 0, absenceStudent = 0, isPresent = 0
 WHERE rfID = '0001';
 
 

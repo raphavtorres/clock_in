@@ -4,7 +4,7 @@ from functions import check_entrance, check_exit, format
 
 current_time = get_curr_time()
 current_time_list = current_time.split(' ')
-current_time_list = [0, "11:30:00"]
+# current_time_list = [0, "10:50:00"]
 
 
 def db_commit(sql):
@@ -40,14 +40,27 @@ def create_entrance(rfID):
     db_commit(sql)
 
 
-def create_exit(rfID):
-    abscense = check_exit(current_time_list[1])
+def read_element(rfID):
+    sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
+    con.cursor.execute(sql)
+    result = con.cursor.fetchall()
+    presence = result[0][0]
+    
 
-    new_presence = 5 - int(abscense)
+def create_exit(rfID):
+    abscense = check_exit(current_time_list[1]) 
+
+    sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
+    con.cursor.execute(sql)
+    result = con.cursor.fetchall()
+    presence = result[0][0]
+
+    new_presence = int(presence) - int(abscense)
+    new_abscence = 5 - int(new_presence)
 
     sql = [
         f"INSERT INTO exit_table (timeExit, rfID) VALUES ('{current_time}', '{rfID}')",
-        f"UPDATE students SET presenceStudent = {new_presence}, absenceStudent = {abscense} WHERE rfID = {rfID}"
+        f"UPDATE students SET presenceStudent = {new_presence}, absenceStudent = {new_abscence} WHERE rfID = {rfID}"
     ]
     db_commit(sql)
     return current_time
