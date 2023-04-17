@@ -4,7 +4,7 @@ from functions import check_entrance, check_exit, format
 
 current_time = get_curr_time()
 current_time_list = current_time.split(' ')
-# current_time_list = [0, "10:50:00"]
+current_time_list = [0, "11:00:00"]
 
 
 def db_commit(sql):
@@ -13,11 +13,15 @@ def db_commit(sql):
         con.db.commit()
 
 
-def hit_point(rfID):
-    sql = f"SELECT isPresent FROM students WHERE rfID = {rfID}"
+def read_element(rfID, element):
+    sql = f"SELECT {element} FROM students WHERE rfID = {rfID}"
     con.cursor.execute(sql)
     result = con.cursor.fetchall()
-    presence = result[0][0]
+    return result[0][0]
+
+
+def hit_point(rfID):
+    presence = read_element(rfID, 'isPresent')
 
     if presence == 1:
         presence = 0
@@ -40,20 +44,9 @@ def create_entrance(rfID):
     db_commit(sql)
 
 
-def read_element(rfID):
-    sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
-    con.cursor.execute(sql)
-    result = con.cursor.fetchall()
-    presence = result[0][0]
-    
-
 def create_exit(rfID):
     abscense = check_exit(current_time_list[1]) 
-
-    sql = f"SELECT presenceStudent FROM students WHERE rfID = {rfID}"
-    con.cursor.execute(sql)
-    result = con.cursor.fetchall()
-    presence = result[0][0]
+    presence = read_element(rfID, 'presenceStudent')
 
     new_presence = int(presence) - int(abscense)
     new_abscence = 5 - int(new_presence)
