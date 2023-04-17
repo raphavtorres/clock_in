@@ -5,5 +5,5 @@ The project's objective is to create a time clock to control the student's atten
 For this project we used our knowledge acquired in the Hardware, Operating Systems and Pyhton classes, with the guidance of teacher Celso ricardo. 
 
 
-Project developed by the students: Luís Felipe, Luís Beck, Matheus Aprigio, Raphael Torres.
+Project developed by the students: Luís Felipe, Luís Beck, Matheus Aprigio and Raphael Torres.
 
