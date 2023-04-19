@@ -39,7 +39,7 @@ INSERT INTO students (rfID, nameStudent, presenceStudent, absenceStudent, lateSt
 
 UPDATE students
 SET nameStudent = 'Celso Ricardo', presenceStudent = 0, lateStudent = 0, absenceStudent = 0, isPresent = 0
-WHERE rfID = '0001';
+WHERE rfID = '383529815217';
 
 
 SELECT presenceStudent FROM students WHERE rfID = '123';
