@@ -1,10 +1,11 @@
+from threading import Timer
 import connect as con
 from clock import get_curr_time
 from functions import check_entrance, check_exit, format
 
 current_time = get_curr_time()
 current_time_list = current_time.split(' ')
-current_time_list = [0, "11:00:00"]
+current_time_list = [0, "07:30:00"]
 
 
 def db_commit(sql):
@@ -17,6 +18,7 @@ def read_element(rfID, element):
     sql = f"SELECT {element} FROM students WHERE rfID = {rfID}"
     con.cursor.execute(sql)
     result = con.cursor.fetchall()
+    print(result)
     return result[0][0]
 
 
@@ -36,6 +38,7 @@ def hit_point(rfID):
 
 # CALLED WHEN HIT
 def create_entrance(rfID):
+    # timer(rfID)
     presence, lateness = check_entrance(current_time_list[1])
     sql = [
         f"INSERT INTO entrance_table (timeEntrance, rfID) VALUES ('{current_time}', '{rfID}')",
@@ -59,5 +62,14 @@ def create_exit(rfID):
     return current_time
 
 
+# def exit_closure(rfID):
+#     return create_exit()
+
+
+# def timer(rfID):
+#     timer_variable = Timer(14400, create_exit)
+#     timer_variable.start()
+
+    
 def read_user():
     ...
