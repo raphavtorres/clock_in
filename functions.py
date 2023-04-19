@@ -45,7 +45,3 @@ def check_exit(time_exit):
     timer_variable = Timer(14400, create_exit)
     timer_variable.start()
 """
-
-"""
-se n completar uma aula n recebe presença
-"""
