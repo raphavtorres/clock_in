@@ -34,3 +34,4 @@ def create_exit(rfID):
 
 create_entrance('0001')
 """ create_exit('0001') """
+#oi
